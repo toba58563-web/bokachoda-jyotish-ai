@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>দোস্তকে জ্বালাও 🔥 | Bangla Roast Generator</title>
+  <meta name="description" content="বন্ধুকে রোস্ট করুন! ভয়েস রোস্ট সহ শেয়ার করুন। 🔥">
+  <meta name="keywords" content="বাংলা রোস্ট, দোস্তকে জ্বালাও, funny roast bangla">
+  <meta name="author" content="Roast Bangla">
+  
+  <!-- Open Graph tags for WhatsApp preview -->
+  <meta property="og:title" content="দোস্তকে জ্বালাও 🔥 | Bangla Roast">
+  <meta property="og:description" content="বন্ধুকে রোস্ট করো! ভয়েস সহ শেয়ার করো।">
+  <meta property="og:image" content="assets/banner.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="">
+  <meta name="twitter:card" content="summary_large_image">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Rubik+Glitch&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(ellipse at 30% 40%, #0a0c12, #020408);
+      font-family: 'Hind Siliguri', 'Segoe UI', sans-serif;
+      color: #f2eee9;
+      line-height: 1.5;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    .ad-placeholder {
+      background: rgba(0, 0, 0, 0.45);
+      border-radius: 1.2rem;
+      text-align: center;
+      padding: 0.8rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: #b9c7d4;
+      border: 1px dashed rgba(255, 180, 100, 0.4);
+      backdrop-filter: blur(5px);
+      margin: 1rem 0;
+    }
+    .ad-placeholder i { margin-right: 6px; color: #f59e0b; }
+
+    .container {
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 0.6rem 0 2rem;
+    }
+
+    .glitch-title {
+      font-family: 'Rubik Glitch', cursive;
+      font-size: 2.2rem;
+      text-align: center;
+      background: linear-gradient(135deg, #ffb347, #ff6b6b, #c084fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.3rem;
+    }
+    
+    .input-area {
+      background: rgba(0, 0, 0, 0.55);
+      border-radius: 3rem;
+      padding: 0.3rem;
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .input-area input {
+      flex: 1;
+      background: #11161f;
+      border: none;
+      padding: 0.9rem 1.5rem;
+      border-radius: 3rem;
+      font-size: 1rem;
+      font-family: 'Hind Siliguri', monospace;
+      color: #fff3e6;
+      outline: none;
+    }
+    .input-area input:focus { background: #1e2a36; box-shadow: 0 0 0 2px #ff8c42; }
+    .input-area button {
+      background: linear-gradient(105deg, #dc2f2f, #f97316);
+      border: none;
+      padding: 0 1.5rem;
+      border-radius: 3rem;
+      font-weight: bold;
+      font-size: 1rem;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .input-area button:hover { transform: scale(0.96); }
+
+    /* Permanent Banner Image */
+    .permanent-banner {
+      width: 100%;
+      margin: 0.5rem 0 1.5rem 0;
+    }
+    .permanent-banner img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 100, 0, 0.3), 0 10px 25px rgba(0,0,0,0.3);
+      display: block;
+    }
+    .permanent-banner img:hover {
+      box-shadow: 0 0 28px rgba(255, 120, 0, 0.5);
+    }
+
+    /* Roast Result Card */
+    .roast-card {
+      background: linear-gradient(135deg, rgba(20, 25, 38, 0.95), rgba(8, 10, 18, 0.98));
+      border-radius: 1.8rem;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      border: 1px solid rgba(255, 145, 77, 0.4);
+      transition: 0.3s;
+    }
+    .reaction-emoji {
+      font-size: 2rem;
+      text-align: center;
+      margin: 0.5rem 0;
+      letter-spacing: 8px;
+    }
+    .roast-text {
+      font-size: 1.3rem;
+      font-weight: 600;
+      line-height: 1.45;
+      text-align: center;
+      margin: 0.8rem 0;
+      word-break: break-word;
+      color: #ffefcf;
+    }
+    .action-group {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .btn-action {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 2.5rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #f2e8df;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Hind Siliguri', sans-serif;
+      border: 1px solid rgba(255,180,100,0.3);
+    }
+    .btn-action:hover { background: #ff6b2c; transform: translateY(-2px); }
+    .voice-btn { background: rgba(156, 85, 255, 0.3); border-color: #9c55ff; }
+    .voice-btn:hover { background: #9c55ff; }
+    .whatsapp-btn { background: rgba(37, 211, 102, 0.2); border-color: #25d366; }
+    .whatsapp-btn:hover { background: #25d366; color: #000; }
+    
+    .fire-animation {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+    .fire-particle {
+      position: absolute;
+      bottom: 0;
+      background: radial-gradient(circle, #ff4500, #ff8c00);
+      border-radius: 50%;
+      opacity: 0;
+      animation: fireRise 1s ease-out forwards;
+    }
+    @keyframes fireRise {
+      0% { opacity: 0.8; transform: translateY(0) scale(0.5); }
+      100% { opacity: 0; transform: translateY(-200px) scale(1.2); }
+    }
+    #toastMessage {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.9);
+      background: #1e1b2c;
+      backdrop-filter: blur(20px);
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      z-index: 1100;
+      opacity: 0;
+      transition: 0.2s;
+      pointer-events: none;
+      color: #ffda9e;
+      border-left: 4px solid #ff8c42;
+    }
+    footer { text-align: center; margin-top: 2rem; font-size: 0.7rem; opacity: 0.7; }
+    
+    @media (max-width: 550px) {
+      .glitch-title { font-size: 1.8rem; }
+      .roast-text { font-size: 1.1rem; }
+      .btn-action { padding: 0.5rem 0.9rem; font-size: 0.75rem; }
+    }
+    
+    @keyframes glowPop {
+      0% { opacity: 0; transform: scale(0.96);}
+      100% { opacity: 1; transform: scale(1);}
+    }
+    .roast-card { animation: glowPop 0.3s ease; }
+    .share-url-hint {
+      font-size: 0.7rem;
+      text-align: center;
+      margin-top: 0.8rem;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- TOP AdSense placeholder -->
+  <div class="ad-placeholder"><i class="fas fa-ad"></i> 🔥 বিজ্ঞাপন - আপনার AdSense এখানে 🔥</div>
+  
+  <h1 class="glitch-title">দোস্তকে জ্বালাও 🔥</h1>
+
+  <!-- Name Input + Generate Button -->
+  <div class="input-area">
+    <input type="text" id="friendNameInput" placeholder="বন্ধুর নাম লিখো, যেমন: 'পুদিন' বা 'সৌরভ'" autocomplete="off">
+    <button id="roastNowBtn"><i class="fas fa-fire"></i> জ্বালাও!</button>
+  </div>
+
+  <!-- PERMANENT BANNER IMAGE (Fixed, never changes) -->
+  <div class="permanent-banner">
+    <img src="assets/banner.jpg" alt="Roast My Friend Banner" onerror="this.src='https://placehold.co/600x200/1a1a2e/ff914d?text=Roast+Banner'">
+  </div>
+
+  <!-- Roast Result Card -->
+  <div id="resultRoastCard" class="roast-card" style="display: none;">
+    <div class="reaction-emoji" id="reactionEmoji">😂 🤣 💀</div>
+    <div class="roast-text" id="roastMessageDisplay">লোড হচ্ছে...</div>
+    <div class="action-group">
+      <button class="btn-action" id="copyRoastBtn"><i class="fas fa-copy"></i> কপি</button>
+      <button class="btn-action voice-btn" id="voiceRoastBtn"><i class="fas fa-volume-up"></i> ভয়েস রোস্ট</button>
+      <button class="btn-action whatsapp-btn" id="shareWhatsappBtn"><i class="fab fa-whatsapp"></i> হোয়াটসঅ্যাপ</button>
+    </div>
+    <div class="action-group">
+      <button class="btn-action" id="newRoastGenerateBtn"><i class="fas fa-dice-d20"></i> নতুন রোস্ট</button>
+      <button class="btn-action" id="roastAnotherBtn"><i class="fas fa-user-plus"></i> আরেকজনকে জ্বালাও</button>
+    </div>
+    <div class="share-url-hint" id="shareUrlHint">🔗 শেয়ার লিংক: URL-এ নাম যোগ হয়</div>
+  </div>
+
+  <!-- BOTTOM AdSense placeholder -->
+  <div class="ad-placeholder"><i class="fas fa-ad"></i> 📢 Google AdSense - মজার মিম কন্টেন্ট 📢</div>
+  <footer>⚡ ফ্যামিলি-ফ্রেন্ডলি রোস্ট | ভয়েস রোস্ট সহ | শেয়ার করো</footer>
+</div>
+<div id="toastMessage">✨ কপি হয়েছে!</div>
+<div id="fireContainer" class="fire-animation"></div>
+
+<!-- Jokes/Predictions are loaded from external file - YOU MUST PROVIDE predictions.js -->
+<script src="predictions.js"></script>
+<script>
+  // --------------------------------------------------------------
+  // NO JOKES ARE STORED HERE - ALL JOKES COME FROM predictions.js
+  // --------------------------------------------------------------
+  
+  // Check if predictions array exists from predictions.js
+  if (typeof predictions === 'undefined') {
+    console.error("ERROR: predictions.js not loaded! Please create predictions.js with your jokes.");
+    // No fallback jokes - just show error message to user
+    var predictions = [];
+  }
+  
+  // Helper functions
+  function getRandomReaction() {
+    const reactions = ["😂", "🤣", "💀", "🤡", "🔥", "😭", "🤌", "🗿"];
+    return reactions[Math.floor(Math.random() * reactions.length)];
+  }
+  
+  function generateRoast(name) {
+    // If no predictions array or empty, show error message
+    if (!predictions || predictions.length === 0) {
+      return "❌ কোন রোস্ট পাওয়া যায়নি! predictions.js ফাইলে রোস্ট যোগ করুন।";
+    }
+    
+    if (!name || name.trim() === "") {
+      return "⚠️ দয়া করে একটি নাম লিখুন!";
+    }
+    
+    const displayName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    const randomIndex = Math.floor(Math.random() * predictions.length);
+    let roast = predictions[randomIndex];
+    
+    // Replace {name} with the entered name
+    roast = roast.replace(/{name}/gi, displayName);
+    
+    return roast;
+  }
+  
+  // Fire animation on roast generation
+  function triggerFireAnimation() {
+    const container = document.getElementById('fireContainer');
+    for(let i=0;i<30;i++) {
+      const particle = document.createElement('div');
+      particle.className = 'fire-particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.width = Math.random() * 15 + 5 + 'px';
+      particle.style.height = particle.style.width;
+      particle.style.animationDuration = Math.random() * 1 + 0.6 + 's';
+      particle.style.animationDelay = Math.random() * 0.5 + 's';
+      container.appendChild(particle);
+      setTimeout(() => { if(particle && particle.remove) particle.remove(); }, 1500);
+    }
+  }
+  
+  // Voice roast (Bengali text-to-speech)
+  function speakRoast(text) {
+    if(!text) return;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'bn-IN';
+    utterance.rate = 0.9;
+    utterance.pitch = 1.1;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+  }
+  
+  // URL parameter handling for sharing
+  function updateURLParameter(name) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('name', name);
+    window.history.pushState({}, '', url);
+  }
+  
+  function getNameFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('name');
+  }
+  
+  function showToast(msg) {
+    const toast = document.getElementById('toastMessage');
+    toast.textContent = msg;
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateX(-50%) scale(1)';
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(-50%) scale(0.9)';
+    }, 2000);
+  }
+  
+  // DOM Elements
+  const nameInput = document.getElementById('friendNameInput');
+  const roastBtn = document.getElementById('roastNowBtn');
+  const resultCard = document.getElementById('resultRoastCard');
+  const roastMsgSpan = document.getElementById('roastMessageDisplay');
+  const reactionSpan = document.getElementById('reactionEmoji');
+  const copyBtn = document.getElementById('copyRoastBtn');
+  const voiceBtn = document.getElementById('voiceRoastBtn');
+  const whatsappBtn = document.getElementById('shareWhatsappBtn');
+  const newRoastBtn = document.getElementById('newRoastGenerateBtn');
+  const roastAnotherBtn = document.getElementById('roastAnotherBtn');
+  const shareUrlHint = document.getElementById('shareUrlHint');
+  
+  let currentRoast = "";
+  let currentName = "";
+  
+  function displayRoastCard(roast, name) {
+    currentRoast = roast;
+    currentName = name;
+    roastMsgSpan.innerHTML = roast;
+    
+    // Random reactions for visual effect only (not part of the joke)
+    const react1 = getRandomReaction();
+    const react2 = getRandomReaction();
+    const react3 = getRandomReaction();
+    reactionSpan.innerHTML = `${react1} ${react2} ${react3}`;
+    
+    resultCard.style.display = "block";
+    triggerFireAnimation();
+    
+    const shareUrl = `${window.location.origin}${window.location.pathname}?name=${encodeURIComponent(name)}`;
+    shareUrlHint.innerHTML = `🔗 শেয়ার লিংক: ${shareUrl}`;
+  }
+  
+  function generateAndShow() {
+    let friendName = nameInput.value.trim();
+    if(friendName === "") {
+      showToast("⚠️ বন্ধুর নাম লিখো আগে!");
+      nameInput.focus();
+      return;
+    }
+    const displayN = friendName;
+    const roast = generateRoast(displayN);
+    displayRoastCard(roast, displayN);
+    updateURLParameter(displayN);
+  }
+  
+  // Auto-load from URL
+  function loadFromURL() {
+    const urlName = getNameFromURL();
+    if(urlName && urlName.trim() !== "") {
+      nameInput.value = urlName;
+      setTimeout(() => {
+        generateAndShow();
+      }, 200);
+    }
+  }
+  
+  // Event Listeners
+  roastBtn.addEventListener('click', generateAndShow);
+  newRoastBtn.addEventListener('click', generateAndShow);
+  
+  roastAnotherBtn.addEventListener('click', () => {
+    nameInput.value = "";
+    nameInput.focus();
+    resultCard.style.display = "none";
+    showToast("নতুন দোস্তের নাম লিখো 🔥");
+  });
+  
+  copyBtn.addEventListener('click', () => {
+    if(!currentRoast) { showToast("প্রথমে রোস্ট জেনারেট করো!"); return; }
+    const text = `🔥 ${currentRoast} 🔥\n- দোস্তকে জ্বালাও`;
+    navigator.clipboard.writeText(text);
+    showToast("📋 রোস্ট কপি!");
+  });
+  
+  voiceBtn.addEventListener('click', () => {
+    if(!currentRoast) { showToast("রোস্ট জেনারেট করে নাও!"); return; }
+    speakRoast(currentRoast);
+  });
+  
+  whatsappBtn.addEventListener('click', () => {
+    if(!currentRoast) { showToast("রোস্ট নেই!"); return; }
+    const shareMsg = `🔥 *দোস্তকে জ্বালাও - রোস্ট টাইম* 🔥\n\n${currentRoast}\n\nশেয়ার লিংক: ${window.location.href}`;
+    const waUrl = `https://wa.me/?text=${encodeURIComponent(shareMsg)}`;
+    window.open(waUrl, '_blank');
+  });
+  
+  nameInput.addEventListener('keypress', (e) => {
+    if(e.key === 'Enter') generateAndShow();
+  });
+  
+  // OpenGraph dynamic URL update
+  function updateMetaTags() {
+    let metaOg = document.querySelector('meta[property="og:url"]');
+    if(metaOg) metaOg.setAttribute('content', window.location.href);
+    else {
+      let newMeta = document.createElement('meta');
+      newMeta.setAttribute('property', 'og:url');
+      newMeta.setAttribute('content', window.location.href);
+      document.head.appendChild(newMeta);
+    }
+  }
+  updateMetaTags();
+  loadFromURL();
+  
+  // Log how many jokes are loaded
+  console.log(`✅ Loaded ${predictions ? predictions.length : 0} jokes from predictions.js`);
+</script>
+</body>
+</html>
