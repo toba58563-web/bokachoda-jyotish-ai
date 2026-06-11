@@ -108,7 +108,6 @@
     }
     .input-area button:hover { transform: scale(0.96); }
 
-    /* Permanent Banner Image - Fixed position in flow */
     .permanent-banner {
       width: 100%;
       margin: 0.5rem 0 1.5rem 0;
@@ -121,11 +120,7 @@
       box-shadow: 0 0 20px rgba(255, 100, 0, 0.3), 0 10px 25px rgba(0,0,0,0.3);
       display: block;
     }
-    .permanent-banner img:hover {
-      box-shadow: 0 0 28px rgba(255, 120, 0, 0.5);
-    }
 
-    /* Roast Result Card - Will appear below banner */
     .roast-card {
       background: linear-gradient(135deg, rgba(20, 25, 38, 0.95), rgba(8, 10, 18, 0.98));
       border-radius: 1.8rem;
@@ -135,7 +130,6 @@
       transition: 0.3s;
       position: relative;
       z-index: 2;
-      clear: both;
     }
     .reaction-emoji {
       font-size: 2rem;
@@ -181,7 +175,6 @@
     .whatsapp-btn { background: rgba(37, 211, 102, 0.2); border-color: #25d366; }
     .whatsapp-btn:hover { background: #25d366; color: #000; }
     
-    /* Fire animation - lower z-index so it doesn't interfere */
     .fire-animation {
       position: fixed;
       bottom: 0;
@@ -239,27 +232,29 @@
       margin-top: 0.8rem;
       opacity: 0.6;
     }
+    
+    .loading-message {
+      text-align: center;
+      padding: 1rem;
+      color: #ffa500;
+    }
   </style>
 </head>
 <body>
 <div class="container">
-  <!-- TOP AdSense placeholder -->
   <div class="ad-placeholder"><i class="fas fa-ad"></i> 🔥 বিজ্ঞাপন - আপনার AdSense এখানে 🔥</div>
   
   <h1 class="glitch-title">দোস্তকে জ্বালাও 🔥</h1>
 
-  <!-- Name Input + Generate Button -->
   <div class="input-area">
     <input type="text" id="friendNameInput" placeholder="বন্ধুর নাম লিখো, যেমন: 'পুদিন' বা 'সৌরভ'" autocomplete="off">
     <button id="roastNowBtn"><i class="fas fa-fire"></i> জ্বালাও!</button>
   </div>
 
-  <!-- PERMANENT BANNER IMAGE - Always visible, never changes -->
   <div class="permanent-banner">
     <img src="assets/banner.jpg" alt="Roast My Friend Banner" onerror="this.src='https://placehold.co/600x200/1a1a2e/ff914d?text=Roast+Banner'">
   </div>
 
-  <!-- Roast Result Card - Appears ONLY below the banner when button is clicked -->
   <div id="resultRoastCard" class="roast-card" style="display: none;">
     <div class="reaction-emoji" id="reactionEmoji">😂 🤣 💀</div>
     <div class="roast-text" id="roastMessageDisplay">লোড হচ্ছে...</div>
@@ -275,77 +270,89 @@
     <div class="share-url-hint" id="shareUrlHint">🔗 শেয়ার লিংক: URL-এ নাম যোগ হয়</div>
   </div>
 
-  <!-- BOTTOM AdSense placeholder -->
   <div class="ad-placeholder"><i class="fas fa-ad"></i> 📢 Google AdSense - মজার মিম কন্টেন্ট 📢</div>
   <footer>⚡ ফ্যামিলি-ফ্রেন্ডলি রোস্ট | ভয়েস রোস্ট সহ | শেয়ার করো</footer>
 </div>
 <div id="toastMessage">✨ কপি হয়েছে!</div>
 <div id="fireContainer" class="fire-animation"></div>
 
-<!-- Jokes/Predictions are loaded from external file - YOU MUST PROVIDE predictions.js -->
+<!-- predictions.js file se jokes load honge - यहाँ से jokes load होंगे -->
 <script src="predictions.js"></script>
 <script>
-  // --------------------------------------------------------------
-  // NO JOKES ARE STORED HERE - ALL JOKES COME FROM predictions.js
-  // --------------------------------------------------------------
-  
-  // Check if predictions array exists from predictions.js
-  if (typeof predictions === 'undefined') {
-    console.error("ERROR: predictions.js not loaded! Please create predictions.js with your jokes.");
-    // No fallback jokes - just show error message to user
-    var predictions = [];
-  }
-  
-  // Helper functions
-  function getRandomReaction() {
+// --------------------------------------------------------------
+// HTML predictions.js se jokes load karega
+// HTML will load jokes from predictions.js file
+// --------------------------------------------------------------
+
+let globalPredictions = [];
+
+// Function to load jokes from predictions.js
+function loadPredictions() {
+    return new Promise((resolve, reject) => {
+        // Check if predictions array exists (from predictions.js)
+        if (typeof predictions !== 'undefined' && predictions && predictions.length > 0) {
+            globalPredictions = predictions;
+            console.log("✅ Jokes loaded successfully from predictions.js");
+            console.log("📊 Total jokes count:", globalPredictions.length);
+            resolve(globalPredictions);
+        } else {
+            // Agar predictions.js nahi mila ya empty hai
+            console.error("❌ predictions.js not loaded or empty!");
+            // Default message - but NO default jokes
+            globalPredictions = [];
+            reject("No jokes found in predictions.js");
+        }
+    });
+}
+
+// Helper functions
+function getRandomReaction() {
     const reactions = ["😂", "🤣", "💀", "🤡", "🔥", "😭", "🤌", "🗿"];
     return reactions[Math.floor(Math.random() * reactions.length)];
-  }
-  
-  function generateRoast(name) {
-    // If no predictions array or empty, show error message
-    if (!predictions || predictions.length === 0) {
-      return "❌ কোন রোস্ট পাওয়া যায়নি! predictions.js ফাইলে রোস্ট যোগ করুন।";
+}
+
+function generateRoast(name) {
+    // Agar koi jokes nahi hain
+    if (!globalPredictions || globalPredictions.length === 0) {
+        return "❌ কোন রোস্ট পাওয়া যায়নি! predictions.js ফাইলে রোস্ট যোগ করুন।\n\n⚠️ GitHub এ predictions.js ফাইল চেক করুন।";
     }
     
     if (!name || name.trim() === "") {
-      return "⚠️ দয়া করে একটি নাম লিখুন!";
+        return "⚠️ দয়া করে একটি নাম লিখুন!";
     }
     
     const displayName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-    const randomIndex = Math.floor(Math.random() * predictions.length);
-    let roast = predictions[randomIndex];
+    const randomIndex = Math.floor(Math.random() * globalPredictions.length);
+    let roast = globalPredictions[randomIndex];
     
-    // Replace {name} with the entered name
+    // Replace {name} with entered name
     roast = roast.replace(/{name}/gi, displayName);
     
     return roast;
-  }
-  
-  // Fire animation on roast generation
-  function triggerFireAnimation() {
+}
+
+// Fire animation
+function triggerFireAnimation() {
     const container = document.getElementById('fireContainer');
-    // Clear existing particles first
     while (container.firstChild) {
-      container.removeChild(container.firstChild);
+        container.removeChild(container.firstChild);
     }
     for(let i=0;i<30;i++) {
-      const particle = document.createElement('div');
-      particle.className = 'fire-particle';
-      particle.style.left = Math.random() * 100 + '%';
-      particle.style.width = Math.random() * 15 + 5 + 'px';
-      particle.style.height = particle.style.width;
-      particle.style.animationDuration = Math.random() * 1 + 0.6 + 's';
-      particle.style.animationDelay = Math.random() * 0.5 + 's';
-      container.appendChild(particle);
-      setTimeout(() => { if(particle && particle.remove) particle.remove(); }, 1500);
+        const particle = document.createElement('div');
+        particle.className = 'fire-particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.width = Math.random() * 15 + 5 + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.animationDuration = Math.random() * 1 + 0.6 + 's';
+        particle.style.animationDelay = Math.random() * 0.5 + 's';
+        container.appendChild(particle);
+        setTimeout(() => { if(particle && particle.remove) particle.remove(); }, 1500);
     }
-  }
-  
-  // Voice roast (Bengali text-to-speech)
-  function speakRoast(text) {
+}
+
+// Voice roast
+function speakRoast(text) {
     if(!text) return;
-    // Remove any HTML tags if present
     const plainText = text.replace(/<[^>]*>/g, '');
     const utterance = new SpeechSynthesisUtterance(plainText);
     utterance.lang = 'bn-IN';
@@ -353,143 +360,153 @@
     utterance.pitch = 1.1;
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(utterance);
-  }
-  
-  // URL parameter handling for sharing
-  function updateURLParameter(name) {
+}
+
+// URL handling
+function updateURLParameter(name) {
     const url = new URL(window.location.href);
     url.searchParams.set('name', name);
     window.history.pushState({}, '', url);
-  }
-  
-  function getNameFromURL() {
+}
+
+function getNameFromURL() {
     const params = new URLSearchParams(window.location.search);
     return params.get('name');
-  }
-  
-  function showToast(msg) {
+}
+
+function showToast(msg) {
     const toast = document.getElementById('toastMessage');
     toast.textContent = msg;
     toast.style.opacity = '1';
     toast.style.transform = 'translateX(-50%) scale(1)';
     setTimeout(() => {
-      toast.style.opacity = '0';
-      toast.style.transform = 'translateX(-50%) scale(0.9)';
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) scale(0.9)';
     }, 2000);
-  }
-  
-  // DOM Elements
-  const nameInput = document.getElementById('friendNameInput');
-  const roastBtn = document.getElementById('roastNowBtn');
-  const resultCard = document.getElementById('resultRoastCard');
-  const roastMsgSpan = document.getElementById('roastMessageDisplay');
-  const reactionSpan = document.getElementById('reactionEmoji');
-  const copyBtn = document.getElementById('copyRoastBtn');
-  const voiceBtn = document.getElementById('voiceRoastBtn');
-  const whatsappBtn = document.getElementById('shareWhatsappBtn');
-  const newRoastBtn = document.getElementById('newRoastGenerateBtn');
-  const roastAnotherBtn = document.getElementById('roastAnotherBtn');
-  const shareUrlHint = document.getElementById('shareUrlHint');
-  
-  let currentRoast = "";
-  let currentName = "";
-  
-  function displayRoastCard(roast, name) {
+}
+
+// DOM Elements
+const nameInput = document.getElementById('friendNameInput');
+const roastBtn = document.getElementById('roastNowBtn');
+const resultCard = document.getElementById('resultRoastCard');
+const roastMsgSpan = document.getElementById('roastMessageDisplay');
+const reactionSpan = document.getElementById('reactionEmoji');
+const copyBtn = document.getElementById('copyRoastBtn');
+const voiceBtn = document.getElementById('voiceRoastBtn');
+const whatsappBtn = document.getElementById('shareWhatsappBtn');
+const newRoastBtn = document.getElementById('newRoastGenerateBtn');
+const roastAnotherBtn = document.getElementById('roastAnotherBtn');
+const shareUrlHint = document.getElementById('shareUrlHint');
+
+let currentRoast = "";
+let currentName = "";
+
+function displayRoastCard(roast, name) {
     currentRoast = roast;
     currentName = name;
     roastMsgSpan.innerHTML = roast;
     
-    // Random reactions for visual effect only (not part of the joke)
     const react1 = getRandomReaction();
     const react2 = getRandomReaction();
     const react3 = getRandomReaction();
     reactionSpan.innerHTML = `${react1} ${react2} ${react3}`;
     
     resultCard.style.display = "block";
-    
-    // Scroll to the roast card smoothly
     resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    
     triggerFireAnimation();
     
     const shareUrl = `${window.location.origin}${window.location.pathname}?name=${encodeURIComponent(name)}`;
     shareUrlHint.innerHTML = `🔗 শেয়ার লিংক: ${shareUrl}`;
-  }
-  
-  function generateAndShow() {
+}
+
+function generateAndShow() {
     let friendName = nameInput.value.trim();
     if(friendName === "") {
-      showToast("⚠️ বন্ধুর নাম লিখো আগে!");
-      nameInput.focus();
-      return;
+        showToast("⚠️ বন্ধুর নাম লিখো আগে!");
+        nameInput.focus();
+        return;
     }
     const displayN = friendName;
     const roast = generateRoast(displayN);
     displayRoastCard(roast, displayN);
     updateURLParameter(displayN);
-  }
-  
-  // Auto-load from URL
-  function loadFromURL() {
+}
+
+function loadFromURL() {
     const urlName = getNameFromURL();
     if(urlName && urlName.trim() !== "") {
-      nameInput.value = urlName;
-      setTimeout(() => {
-        generateAndShow();
-      }, 200);
+        nameInput.value = urlName;
+        setTimeout(() => {
+            generateAndShow();
+        }, 500);
     }
-  }
-  
-  // Event Listeners
-  roastBtn.addEventListener('click', generateAndShow);
-  newRoastBtn.addEventListener('click', generateAndShow);
-  
-  roastAnotherBtn.addEventListener('click', () => {
+}
+
+// Event Listeners
+roastBtn.addEventListener('click', generateAndShow);
+newRoastBtn.addEventListener('click', generateAndShow);
+
+roastAnotherBtn.addEventListener('click', () => {
     nameInput.value = "";
     nameInput.focus();
     resultCard.style.display = "none";
     showToast("নতুন দোস্তের নাম লিখো 🔥");
-  });
-  
-  copyBtn.addEventListener('click', () => {
+});
+
+copyBtn.addEventListener('click', () => {
     if(!currentRoast) { showToast("প্রথমে রোস্ট জেনারেট করো!"); return; }
     const text = `🔥 ${currentRoast} 🔥\n- দোস্তকে জ্বালাও`;
     navigator.clipboard.writeText(text);
     showToast("📋 রোস্ট কপি!");
-  });
-  
-  voiceBtn.addEventListener('click', () => {
+});
+
+voiceBtn.addEventListener('click', () => {
     if(!currentRoast) { showToast("রোস্ট জেনারেট করে নাও!"); return; }
     speakRoast(currentRoast);
-  });
-  
-  whatsappBtn.addEventListener('click', () => {
+});
+
+whatsappBtn.addEventListener('click', () => {
     if(!currentRoast) { showToast("রোস্ট নেই!"); return; }
     const shareMsg = `🔥 *দোস্তকে জ্বালাও - রোস্ট টাইম* 🔥\n\n${currentRoast}\n\nশেয়ার লিংক: ${window.location.href}`;
     const waUrl = `https://wa.me/?text=${encodeURIComponent(shareMsg)}`;
     window.open(waUrl, '_blank');
-  });
-  
-  nameInput.addEventListener('keypress', (e) => {
+});
+
+nameInput.addEventListener('keypress', (e) => {
     if(e.key === 'Enter') generateAndShow();
-  });
-  
-  // OpenGraph dynamic URL update
-  function updateMetaTags() {
+});
+
+function updateMetaTags() {
     let metaOg = document.querySelector('meta[property="og:url"]');
     if(metaOg) metaOg.setAttribute('content', window.location.href);
     else {
-      let newMeta = document.createElement('meta');
-      newMeta.setAttribute('property', 'og:url');
-      newMeta.setAttribute('content', window.location.href);
-      document.head.appendChild(newMeta);
+        let newMeta = document.createElement('meta');
+        newMeta.setAttribute('property', 'og:url');
+        newMeta.setAttribute('content', window.location.href);
+        document.head.appendChild(newMeta);
     }
-  }
-  updateMetaTags();
-  loadFromURL();
-  
-  // Log how many jokes are loaded
-  console.log(`✅ Loaded ${predictions ? predictions.length : 0} jokes from predictions.js`);
+}
+
+// Initialize website - Load jokes first
+async function initWebsite() {
+    try {
+        await loadPredictions();
+        updateMetaTags();
+        loadFromURL();
+        console.log("✅ Website ready! Total jokes available:", globalPredictions.length);
+        
+        // Agar koi jokes nahi hai to user ko batayein
+        if (globalPredictions.length === 0) {
+            showToast("⚠️ predictions.js file me koi joke nahi mila! Please add jokes.");
+        }
+    } catch(error) {
+        console.error("Failed to load predictions:", error);
+        showToast("❌ predictions.js file load nahi ho rahi! Check karein.");
+    }
+}
+
+// Start the website
+initWebsite();
 </script>
 </body>
 </html>
