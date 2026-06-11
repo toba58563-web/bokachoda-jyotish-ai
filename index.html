@@ -56,6 +56,8 @@
       max-width: 650px;
       margin: 0 auto;
       padding: 0.6rem 0 2rem;
+      position: relative;
+      z-index: 1;
     }
 
     .glitch-title {
@@ -106,10 +108,12 @@
     }
     .input-area button:hover { transform: scale(0.96); }
 
-    /* Permanent Banner Image */
+    /* Permanent Banner Image - Fixed position in flow */
     .permanent-banner {
       width: 100%;
       margin: 0.5rem 0 1.5rem 0;
+      position: relative;
+      z-index: 2;
     }
     .permanent-banner img {
       width: 100%;
@@ -121,7 +125,7 @@
       box-shadow: 0 0 28px rgba(255, 120, 0, 0.5);
     }
 
-    /* Roast Result Card */
+    /* Roast Result Card - Will appear below banner */
     .roast-card {
       background: linear-gradient(135deg, rgba(20, 25, 38, 0.95), rgba(8, 10, 18, 0.98));
       border-radius: 1.8rem;
@@ -129,6 +133,9 @@
       margin: 1rem 0;
       border: 1px solid rgba(255, 145, 77, 0.4);
       transition: 0.3s;
+      position: relative;
+      z-index: 2;
+      clear: both;
     }
     .reaction-emoji {
       font-size: 2rem;
@@ -174,6 +181,7 @@
     .whatsapp-btn { background: rgba(37, 211, 102, 0.2); border-color: #25d366; }
     .whatsapp-btn:hover { background: #25d366; color: #000; }
     
+    /* Fire animation - lower z-index so it doesn't interfere */
     .fire-animation {
       position: fixed;
       bottom: 0;
@@ -181,7 +189,7 @@
       right: 0;
       top: 0;
       pointer-events: none;
-      z-index: 999;
+      z-index: 0;
     }
     .fire-particle {
       position: absolute;
@@ -246,12 +254,12 @@
     <button id="roastNowBtn"><i class="fas fa-fire"></i> জ্বালাও!</button>
   </div>
 
-  <!-- PERMANENT BANNER IMAGE (Fixed, never changes) -->
+  <!-- PERMANENT BANNER IMAGE - Always visible, never changes -->
   <div class="permanent-banner">
     <img src="assets/banner.jpg" alt="Roast My Friend Banner" onerror="this.src='https://placehold.co/600x200/1a1a2e/ff914d?text=Roast+Banner'">
   </div>
 
-  <!-- Roast Result Card -->
+  <!-- Roast Result Card - Appears ONLY below the banner when button is clicked -->
   <div id="resultRoastCard" class="roast-card" style="display: none;">
     <div class="reaction-emoji" id="reactionEmoji">😂 🤣 💀</div>
     <div class="roast-text" id="roastMessageDisplay">লোড হচ্ছে...</div>
@@ -317,6 +325,10 @@
   // Fire animation on roast generation
   function triggerFireAnimation() {
     const container = document.getElementById('fireContainer');
+    // Clear existing particles first
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }
     for(let i=0;i<30;i++) {
       const particle = document.createElement('div');
       particle.className = 'fire-particle';
@@ -333,7 +345,9 @@
   // Voice roast (Bengali text-to-speech)
   function speakRoast(text) {
     if(!text) return;
-    const utterance = new SpeechSynthesisUtterance(text);
+    // Remove any HTML tags if present
+    const plainText = text.replace(/<[^>]*>/g, '');
+    const utterance = new SpeechSynthesisUtterance(plainText);
     utterance.lang = 'bn-IN';
     utterance.rate = 0.9;
     utterance.pitch = 1.1;
@@ -392,6 +406,10 @@
     reactionSpan.innerHTML = `${react1} ${react2} ${react3}`;
     
     resultCard.style.display = "block";
+    
+    // Scroll to the roast card smoothly
+    resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    
     triggerFireAnimation();
     
     const shareUrl = `${window.location.origin}${window.location.pathname}?name=${encodeURIComponent(name)}`;
